@@ -99,7 +99,8 @@ public class ServiceDocumentXmlSerializer {
       throws XMLStreamException {
     for (EdmEntitySet edmEntitySet : container.getEntitySets()) {
       if (edmEntitySet.isIncludeInServiceDocument()) {
-        writeElement(writer, true, "collection", edmEntitySet.getName(), edmEntitySet.getTitle());
+        writeElement(writer, true, "collection", edmEntitySet.getTitle(),
+            edmEntitySet.getTitle(), edmEntitySet.getName());
       }
     }
   }
@@ -122,12 +123,17 @@ public class ServiceDocumentXmlSerializer {
 
   private void writeElement(final XMLStreamWriter writer, final boolean isApp, final String kind, final String name,
       final String title) throws XMLStreamException {
+    writeElement(writer, isApp, kind, name, title, name);
+  }
+
+  private void writeElement(final XMLStreamWriter writer, final boolean isApp, final String kind, final String name,
+      final String title, final String href) throws XMLStreamException {
     if (isApp) {
       writer.writeStartElement(APP, kind, NS_APP);
     } else {
       writer.writeStartElement(METADATA, kind, NS_METADATA);
     }
-    writer.writeAttribute(Constants.ATTR_HREF, name);
+    writer.writeAttribute(Constants.ATTR_HREF, href);
     writer.writeAttribute(METADATA, NS_METADATA, Constants.ATTR_NAME, name);
     writer.writeStartElement(ATOM, Constants.ATOM_ELEM_TITLE, NS_ATOM);
     if (title != null) {

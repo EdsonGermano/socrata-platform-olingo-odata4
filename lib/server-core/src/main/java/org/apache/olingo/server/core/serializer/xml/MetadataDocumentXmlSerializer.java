@@ -631,7 +631,11 @@ public class MetadataDocumentXmlSerializer {
       throws XMLStreamException {
     for (EdmEntitySet entitySet : entitySets) {
       writer.writeStartElement(XML_ENTITY_SET);
-      writer.writeAttribute(XML_NAME, entitySet.getName());
+      if (entitySet.getTitle() != null) {
+        writer.writeAttribute(XML_NAME, entitySet.getTitle());
+      } else {
+        writer.writeAttribute(XML_NAME, entitySet.getName());
+      }
       writer.writeAttribute(XML_ENTITY_TYPE, getAliasedFullQualifiedName(entitySet.getEntityType(), false));
       if (!entitySet.isIncludeInServiceDocument()) {
         writer.writeAttribute(XML_INCLUDE_IN_SERVICE_DOCUMENT, "" + entitySet.isIncludeInServiceDocument());
