@@ -822,7 +822,7 @@ public class UriTokenizer {
         index += Character.isSupplementaryCodePoint(code) ? 2 : 1;
         while (index < parseString.length() && count < 128) {
           code = parseString.codePointAt(index);
-          if (Character.isUnicodeIdentifierPart(code) && !Character.isISOControl(code)) {
+          if ((code == '-' || Character.isUnicodeIdentifierPart(code)) && !Character.isISOControl(code)) {
             count++;
             // Unicode characters outside of the Basic Multilingual Plane are represented as two Java characters.
             index += Character.isSupplementaryCodePoint(code) ? 2 : 1;
