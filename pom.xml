@@ -109,6 +109,14 @@
     <additionalparam>-Xdoclint:none</additionalparam>
   </properties>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>socrata-libs-snapshots</id>
+      <name>socrata-libs-snapshots</name>
+      <url>http://repo.socrata.com:80/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
